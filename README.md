@@ -19,13 +19,17 @@ grunt.initConfig({
     index: {
       //紧凑拼图
       options: { layout: 'close' },
-      src: ['test/less/index.less']
+      cwd: 'test/less/',
+      src: ['index.less'],
+      dest: 'test/build/'
     },
 
     detail: {
       //水平布局
       options: { layout: 'horizontal' },
-      src: ['test/less/detials.less']
+      cwd: 'test/less/',
+      src: ['detials.less'],
+      dest: 'test/build/'
     }
   }
 });

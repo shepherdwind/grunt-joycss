@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['test/less/*.joy', 'test/less/*.css'],
+      tests: ['test/less/*.joy', 'test/build/*.css'],
     },
 
     // Configuration to be run (and then tested).
@@ -33,13 +33,17 @@ module.exports = function(grunt) {
       index: {
         //紧凑拼图
         options: { layout: 'close' },
-        src: ['test/less/index.less']
+        cwd: 'test/less/',
+        src: ['index.css'],
+        dest: 'test/build/'
       },
 
       detail: {
         //水平布局
         options: { layout: 'horizontal' },
-        src: ['test/less/detials.less']
+        cwd: 'test/less/',
+        src: ['detials.less'],
+        dest: 'test/build/'
       }
     },
 

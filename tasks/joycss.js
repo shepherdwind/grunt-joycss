@@ -19,6 +19,16 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('joycss', 'Auto css sprite merge', function() {
 
+    var data = this.data;
+    var dest = data.dest
+
+    if (dest) {
+      dest = path.join(cwd, dest)
+    }
+
+    var _cwd = cwd
+    if (data.cwd) _cwd = path.join(cwd, data.cwd)
+
     var done = this.async();
 
     var _config = grunt.option('config');
@@ -60,7 +70,10 @@ module.exports = function(grunt) {
 
       files.src.forEach(function(file){
 
-        var f = path.resolve(cwd, file);
+        var f = path.resolve(_cwd, file);
+        var extname = path.extname(f)
+        var len = extname.length
+        var _dest = path.resolve(dest, file).slice(0, - len) + '.css'
 
         if (!grunt.file.exists(f)) {
           grunt.log.error('file ' + file + ' not exists');
@@ -68,7 +81,8 @@ module.exports = function(grunt) {
         } else {
           index ++;
           grunt.log.writeln('Start run joycss ' + file);
-          Joycss.Mult.add([f, config]);
+          var ext = path.extname(file)
+          Joycss.Mult.add([f, config, null, _dest]);
         }
 
       });
