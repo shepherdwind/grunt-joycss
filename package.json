@@ -41,6 +41,6 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "joycss": "~0.5.2"
+    "joycss": "~0.5.4"
   }
 }
