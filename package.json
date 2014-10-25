@@ -23,7 +23,7 @@
   ],
   "main": "Gruntfile.js",
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 0.10.0"
   },
   "scripts": {
     "test": "grunt test"
@@ -41,6 +41,6 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "joycss": "~0.5.4"
+    "joycss": "~0.6.2"
   }
 }

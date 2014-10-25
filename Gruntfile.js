@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['test/less/*.joy', 'test/build/*.css'],
+      tests: ['test/build/*'],
     },
 
     // Configuration to be run (and then tested).
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'test/less/',
           src: ['index.css'],
-          dest: 'test/build/'
+          dest: 'test/build/home/'
         }]
       },
 
@@ -36,14 +36,9 @@ module.exports = function(grunt) {
         options: { layout: 'horizontal' },
         cwd: 'test/less/',
         src: ['detials.less'],
-        dest: 'test/build/'
+        dest: 'test/build/details/'
       }
-    },
-
-    // Unit tests.
-    nodeunit: {
-      tests: ['test/*_test.js']
-    },
+    }
 
   });
 
@@ -52,7 +47,6 @@ module.exports = function(grunt) {
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
 
   // By default, lint and run all tests.

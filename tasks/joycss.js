@@ -26,40 +26,14 @@ module.exports = function(grunt) {
 
     var done = this.async()
 
-    var _config = grunt.option('config')
-
-    if (_config) {
-      Joycss.configUser(done)
-      return
-    }
-
-    var upload = grunt.option('upload')
-    var nochange = grunt.option('nochange')
-
     var options = this.options({
-      alpha: false,
-      layout: 'auto', // auto | close | vertical | horizontal
-      nochange: false,
-      upload: false
+      force8bit: true,
+      save: true,
+      layout: 'auto' // auto | close | vertical | horizontal
     })
 
-    var config = {global: {}}
-
-    config.global.layout = options.layout
-
-    if (options.alpha) {
-      config.global.force8bit = false
-    }
-
-    if (options.upload || upload) {
-      config.global.uploadImgs = true
-    }
-
-    if (options.nochange || nochange) {
-      config.global.nochange = true
-    }
-
     var index = 0
+    var tasks = [];
 
     this.files.forEach(function(files) {
 
@@ -73,7 +47,7 @@ module.exports = function(grunt) {
 
         if (!files.orig.expand) {
           dest = path.normalize(dest + '/' + file)
-        } 
+        }
 
         dest = dest.slice(0, - len) + '.css'
 
@@ -83,20 +57,32 @@ module.exports = function(grunt) {
         } else {
           index ++
           grunt.log.writeln('Start run joycss ' + file)
-          var ext = path.extname(file)
-          Joycss.Mult.add([f, config, null, dest])
+          options.destCss = dest
+          tasks.push(new Joycss(f, options))
         }
 
       })
 
     })
 
-    Joycss.Mult.run()
-
-    Joycss.Event.on('mult:end', function(){
-      done()
-    })
+    runTask(tasks, done);
 
   })
 
 }
+
+function runTask(tasks, done){
+  var task = tasks.shift();
+  if (!task) {
+    done();
+    return;
+  }
+  task.run(function(err){
+    if (err) {
+      grunt.log.error(err);
+      return done(false);
+    }
+    runTask(tasks, done);
+  });
+}
+
