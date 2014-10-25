@@ -1,7 +1,7 @@
 {
   "name": "grunt-joycss",
   "description": "grunt plugin for joycss(joycss.org)",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "homepage": "https://github.com/shepherdwind/grunt-joycss",
   "author": {
     "name": "shepherdwind",
