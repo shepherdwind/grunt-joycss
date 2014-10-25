@@ -22,7 +22,7 @@ module.exports = function(grunt) {
     joycss: {
       index: {
         //紧凑拼图
-        options: { layout: 'close' },
+        options: { layout: 'close', force8bit: false },
         files: [{
           expand: true,
           cwd: 'test/less/',

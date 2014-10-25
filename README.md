@@ -18,10 +18,10 @@ grunt.initConfig({
   joycss: {
     index: {
       //紧凑拼图
-      options: { layout: 'close' },
+      options: { layout: 'close', force8bit: false },
       cwd: 'test/less/',
       src: ['index.less'],
-      dest: 'test/build/'
+      dest: 'test/build/index'
     },
 
     detail: {
@@ -29,35 +29,12 @@ grunt.initConfig({
       options: { layout: 'horizontal' },
       cwd: 'test/less/',
       src: ['detials.less'],
-      dest: 'test/build/'
+      dest: 'test/build/detail/'
     }
   }
 });
 grunt.loadNpmTasks('grunt-joycss');
 ```
-
-### Usage Examples
-
-You can try this plugin by command below:
-
-```sh
-$ git clone git://github.com/shepherdwind/grunt-joycss.git
-$ cd grunt-joycss
-$ npm install
-$ grunt joycss
-Running "joycss:index" (joycss) task
-Start run joycss test/less/index.less
->> 30 images will merge to one image index-sprite.png[260x410]
->> write config success. cost time:884ms. joycss end
-
-Running "joycss:detail" (joycss) task
-Start run joycss test/less/detials.less
->> 5 images will merge to one image detials-sprite.png[253x50]
->> write config success. cost time:288ms. joycss end
-
-Done, without errors.
-```
-
 ## The "joycss" task
 
 ### Overview
@@ -67,12 +44,10 @@ In your project's Gruntfile, add a section named `joycss` to the data object pas
 grunt.initConfig({
   joycss: {
     options: {
-      // Task-specific options go here.
-      // This is default options
-      alpha: false,
-      layout: 'auto', // auto | close | vertical | horizontal
-      nochange: false,
-      upload: false
+      // 强制支持png8模式，在需要支持ie6的情况下使用，默认为true
+      force8bit: true,
+      // 拼图方式，有四种方式，默认为自动布局，close是紧凑拼图
+      layout: 'auto' // auto | close | vertical | horizontal
     },
     your_target: {
       // Target-specific file lists and/or options go here.
